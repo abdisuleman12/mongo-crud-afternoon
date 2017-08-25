@@ -16,6 +16,21 @@ router.get('/', function(req, res) {
     });
 });
 
+router.get('/:name', function(req, res) {
+    var searchName = req.params.name;
+    console.log(searchName);
+    // find all of the people in the collection
+    Person.find({name: searchName}, function(err, data) {
+        if (err) {
+            console.log('find error: ', err);
+            res.sendStatus(500);
+        } else {
+            console.log('found data: ', data);            
+            res.send(data);
+        }
+    });
+});
+
 router.post('/', function(req, res) {
     console.log('new person to store: ', req.body);
 
@@ -35,6 +50,25 @@ router.post('/', function(req, res) {
         
     });
 });
+
+router.put('/addinternetpts/:id', function(req, res) {
+    var personId = req.params.id;
+
+    Person.findByIdAndUpdate (
+        {_id: personId},
+        {$set: { internetPts: req.body.internetPts} },
+        function(err,data) {
+            if(err) {
+                console.log('update  error: ', err);
+                res.sendStatus(500);
+            } else {
+                res.sendStatus(200);
+            }
+        }
+    )
+
+});
+
 
 router.put('/:id', function(req, res) {
     var personId = req.params.id;

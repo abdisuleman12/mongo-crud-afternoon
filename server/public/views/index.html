@@ -20,6 +20,7 @@
                 <input type="text" ng-model="vm.newPerson.name" id="name" placeholder="Name" />
                 <label for="location">Location: </label>
                 <input type="text" ng-model="vm.newPerson.location" id="location" placeholder="Location" />
+                <input type="date" ng-model='vm.newPerson.dateOfBirth' id="date_of_birth" placeholder="Date of Birthday"/>
                 <button class="btn btn-primary" ng-click="vm.addPerson()">Add Person</button>
             </form>
             </div>
@@ -30,17 +31,29 @@
               <div ng-repeat="person in vm.gottenPeople.list" class="well col-md-3">
                 <p>{{person.name}}</p>
                 <p>{{person.location}}</p>
+                <p>{{person.dateOfBirth | date: 'MM/dd/yyyy'}}</p>
+                <p>{{person.internetPts}}</p>
                 <!-- input example. commented out because it does not work with the schema -->
                 <!-- <input type="text" ng-model="person.candybar" /> -->
 
                 <!-- Angular knows which 'person' object we mean when we click on the buttons -->
-                <button ng-click="vm.updatePerson(person)" class="btn btn-default">Update</button>
+                <button ng-click="vm.updatePerson(person)"  class="btn btn-default">Update</button>
+                <button ng-click="vm.addInternetPts(person)" class="btn btn-default">  Add 100 points </button>
                 <button ng-click="vm.deletePerson(person._id)" class="btn btn-danger">Delete</button>
               </div>
           </div>
         </div>
+        <input type="text" ng-model="vm.nameToSearch.name" placeholder="search for name">
+        <button class="btn btn-primary" ng-click="vm.searchName()">Search</button>
+        <div ng-repeat="person in vm.searchResults.list">
+            <p>{{person.name}}</p>
+                <p>{{person.location}}</p>
+                <p>{{person.dateOfBirth | date: 'MM/dd/yyyy'}}</p>
+                <p>{{person.internetPts}}</p>
+        </div>
 
     </div>
+    
 
 </body>
 </html>
